@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ZetaPush Diagnostic</title>
+    <style>.success{color:#5cb85c;}.error{color:#d9534f;}.info{color:#337ab7;}</style>
+  </head>
+  <body>
+    <main>
+      <h1>ZetaPush Diagnostic</h1>
+      <ol></ol>
+    </main>
+    <script src="//npmcdn.com/zetapush-js@2.0.0-rc.2/dist/zetapush.min.js"></script>
+    <script>
+      (function () {
+        var list = document.querySelector('ol')
+        window.log = function log(message, level) {
+          var item = document.createElement('li')
+          item.textContent = message
+          item.classList.add(level)
+          list.appendChild(item)
+        }
+      }());
+      (function () {
+        var client = new ZetaPush.WeakClient({
+          sandboxId: 'Ygd5sMuN',
+          transports: [ZetaPush.TransportTypes.LONG_POLLING]
+        })
+        client.addConnectionStatusListener({
+          onConnectionBroken() {
+            log('LongPolling::onConnectionBroken', 'error')
+          },
+          onConnectionClosed() {
+            log('LongPolling::onConnectionClosed', 'info')
+          },
+          onConnectionEstablished() {
+            log('LongPolling::onConnectionEstablished', 'success')
+          },
+          onConnectionWillClose() {
+            log('LongPolling::onConnectionWillClose', 'info')
+          },
+          onFailedHandshake(error) {
+            log('LongPolling::onFailedHandshake', 'error')
+          },
+          onMessageLost() {
+            log('LongPolling::onMessageLost', 'error')
+          },
+          onSuccessfulHandshake(authentication) {
+            log('LongPolling::onSuccessfulHandshake', 'success')
+          }
+        })
+        client.connect()
+      }());
+      (function () {
+        var client = new ZetaPush.WeakClient({
+          sandboxId: 'Ygd5sMuN',
+          transports: [ZetaPush.TransportTypes.WEBSOCKET]
+        })
+        client.addConnectionStatusListener({
+          onConnectionBroken() {
+            log('WebSocket::onConnectionBroken', 'error')
+          },
+          onConnectionClosed() {
+            log('WebSocket::onConnectionClosed', 'info')
+          },
+          onConnectionEstablished() {
+            log('WebSocket::onConnectionEstablished', 'success')
+          },
+          onConnectionWillClose() {
+            log('WebSocket::onConnectionWillClose', 'info')
+          },
+          onFailedHandshake(error) {
+            log('WebSocket::onFailedHandshake', 'error')
+          },
+          onMessageLost() {
+            log('WebSocket::onMessageLost', 'error')
+          },
+          onSuccessfulHandshake(authentication) {
+            log('WebSocket::onSuccessfulHandshake', 'success')
+          }
+        })
+        client.connect()
+      }());
+    </script>
+  </body>
+</html>
