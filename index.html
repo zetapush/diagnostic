@@ -11,7 +11,7 @@
       <h1>ZetaPush Diagnostic</h1>
       <ol></ol>
     </main>
-    <script src="//npmcdn.com/zetapush-js@2.0.0-rc.3/dist/zetapush.min.js"></script>
+    <script src="//unpkg.com/zetapush-js@3.1.0-alpha.8/dist/zetapush.min.js"></script>
     <script>
       (function () {
         var list = document.querySelector('ol')
@@ -24,7 +24,8 @@
       }());
       (function () {
         var client = new ZetaPush.WeakClient({
-          sandboxId: 'Ygd5sMuN',
+          sandboxId: 'mQPnwzCF',
+          deploymentId: 'z3LE',
           transports: [ZetaPush.TransportTypes.LONG_POLLING]
         })
         client.addConnectionStatusListener({
@@ -54,7 +55,8 @@
       }());
       (function () {
         var client = new ZetaPush.WeakClient({
-          sandboxId: 'Ygd5sMuN',
+          sandboxId: 'mQPnwzCF',
+          deploymentId: 'z3LE',
           transports: [ZetaPush.TransportTypes.WEBSOCKET]
         })
         client.addConnectionStatusListener({
