@@ -15,74 +15,32 @@
     <script>
       (function () {
         var list = document.querySelector('ol')
-        window.log = function log(message, level) {
+        function log(message, level) {
           var item = document.createElement('li')
           item.textContent = message
           item.classList.add(level)
           list.appendChild(item)
         }
-      }());
-      (function () {
-        var client = new ZetaPush.WeakClient({
-          sandboxId: 'mQPnwzCF',
-          deploymentId: 'z3LE',
-          transports: [ZetaPush.TransportTypes.LONG_POLLING]
-        })
-        client.addConnectionStatusListener({
-          onConnectionBroken() {
-            log('LongPolling::onConnectionBroken', 'error')
-          },
-          onConnectionClosed() {
-            log('LongPolling::onConnectionClosed', 'info')
-          },
-          onConnectionEstablished() {
-            log('LongPolling::onConnectionEstablished', 'success')
-          },
-          onConnectionWillClose() {
-            log('LongPolling::onConnectionWillClose', 'info')
-          },
-          onFailedHandshake(error) {
-            log('LongPolling::onFailedHandshake', 'error')
-          },
-          onMessageLost() {
-            log('LongPolling::onMessageLost', 'error')
-          },
-          onSuccessfulHandshake(authentication) {
-            log('LongPolling::onSuccessfulHandshake', 'success')
-          }
-        })
-        client.connect()
-      }());
-      (function () {
-        var client = new ZetaPush.WeakClient({
-          sandboxId: 'mQPnwzCF',
-          deploymentId: 'z3LE',
-          transports: [ZetaPush.TransportTypes.WEBSOCKET]
-        })
-        client.addConnectionStatusListener({
-          onConnectionBroken() {
-            log('WebSocket::onConnectionBroken', 'error')
-          },
-          onConnectionClosed() {
-            log('WebSocket::onConnectionClosed', 'info')
-          },
-          onConnectionEstablished() {
-            log('WebSocket::onConnectionEstablished', 'success')
-          },
-          onConnectionWillClose() {
-            log('WebSocket::onConnectionWillClose', 'info')
-          },
-          onFailedHandshake(error) {
-            log('WebSocket::onFailedHandshake', 'error')
-          },
-          onMessageLost() {
-            log('WebSocket::onMessageLost', 'error')
-          },
-          onSuccessfulHandshake(authentication) {
-            log('WebSocket::onSuccessfulHandshake', 'success')
-          }
-        })
-        client.connect()
+        function diagnostic(transport, name) {
+          var client = new ZetaPush.WeakClient({
+            sandboxId: 'mQPnwzCF',
+            deploymentId: 'z3LE',
+            transports: [transport]
+          })
+          client.addConnectionStatusListener({
+            onConnectionBroken() { log(name + '::onConnectionBroken', 'error') },
+            onConnectionClosed() { log(name + '::onConnectionClosed', 'info') },
+            onConnectionEstablished() { log(name + '::onConnectionEstablished', 'success') },
+            onConnectionWillClose() { log(name + '::onConnectionWillClose', 'info') },
+            onFailedHandshake(error) { log(name + '::onFailedHandshake', 'error') },
+            onMessageLost() { log(name + '::onMessageLost', 'error') },
+            onSuccessfulHandshake(authentication) { log(name + '::onSuccessfulHandshake', 'success') }
+          })
+          client.setLogLevel('debug')
+          client.connect()
+        }
+        diagnostic(ZetaPush.TransportTypes.LONG_POLLING, 'LongPolling')
+        diagnostic(ZetaPush.TransportTypes.WEBSOCKET, 'WebSocket')
       }());
     </script>
   </body>
