@@ -6,6 +6,8 @@
     <title>ZetaPush Diagnostic</title>
     <style>
       .App{margin:0;font-family:Arial;}
+      .Container{height:97.5vh;overflow:scroll;}
+      .Footer{color:#AAA;height:2.5vh;text-align:center;}
       .Title{text-transform:uppercase;text-align:center;margin:0;padding:0.5rem 0;}
       .Diagnostic{background-color:#E6E6E6;margin:0.5rem;border-radius:0.25rem;}
       .Diagnostic__Title{color:#B0AEAF;}
@@ -17,9 +19,12 @@
     </style>
   </head>
   <body class="App">
-    <main data-sandbox-id="mQPnwzCF" data-deployment-id="z3LE">
+    <main class="Container" data-sandbox-id="mQPnwzCF" data-deployment-id="z3LE">
       <h1 class="Title">Diagnostic</h1>
     </main>
+    <footer class="Footer">
+      <small>Copyright ZetaPush SAS © 2017</small>
+    </footer>
     <script src="//unpkg.com/babel-polyfill@6.22.0/dist/polyfill.min.js"></script>
     <script src="//unpkg.com/zetapush-js@3.0.1/dist/zetapush.min.js"></script>
     <script>
